@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSonido } from './context/SonidoContext.jsx';
 
+const BASE = import.meta.env.BASE_URL;
+
 const videos = {
-  introvideo1: '/intro/introvideo1.mp4',
-  buclevideo1: '/intro/introbucle1.mp4',
+  introvideo1: `${BASE}intro/introvideo1.mp4`,
+  buclevideo1: `${BASE}intro/introbucle1.mp4`,
 };
 
 const MODULOS = [

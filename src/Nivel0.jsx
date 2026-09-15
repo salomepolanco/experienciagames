@@ -2,22 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSonido } from './context/SonidoContext.jsx';
 
+const BASE = import.meta.env.BASE_URL;
+
 const videos = {
-  video0: '/nivel0/video0.mp4',
-  video1: '/nivel0/video1.mp4',
-  bucle1: '/nivel0/bucle1.mp4',
-  video2: '/nivel0/video2.mp4',
-  bucle2: '/nivel0/bucle2.mp4',
-  video3: '/nivel0/video3.mp4',
-  bucle3: '/nivel0/bucle3.mp4',
-  video4: '/nivel0/video4.mp4',
-  bucle4: '/nivel0/bucle4.mp4',
-  video5: '/nivel0/video5.mp4',
-  bucle5: '/nivel0/bucle5.mp4',
-  video6: '/nivel0/video6.mp4',
-  video7: '/nivel0/video7.mp4',
-  video7_1: '/nivel0/video7_1.mp4',
-  video8: '/nivel0/video8.mp4',
+  video0: `${BASE}nivel0/video0.mp4`,
+  video1: `${BASE}nivel0/video1.mp4`,
+  bucle1: `${BASE}nivel0/bucle1.mp4`,
+  video2: `${BASE}nivel0/video2.mp4`,
+  bucle2: `${BASE}nivel0/bucle2.mp4`,
+  video3: `${BASE}nivel0/video3.mp4`,
+  bucle3: `${BASE}nivel0/bucle3.mp4`,
+  video4: `${BASE}nivel0/video4.mp4`,
+  bucle4: `${BASE}nivel0/bucle4.mp4`,
+  video5: `${BASE}nivel0/video5.mp4`,
+  bucle5: `${BASE}nivel0/bucle5.mp4`,
+  video6: `${BASE}nivel0/video6.mp4`,
+  video7: `${BASE}nivel0/video7.mp4`,
+  video7_1: `${BASE}nivel0/video7_1.mp4`,
+  video8: `${BASE}nivel0/video8.mp4`,
 };
 
 const ROLES_PILAR_1 = [

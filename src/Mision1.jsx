@@ -13,27 +13,29 @@ const FUENTES = [
   { valor: 'proceso', etiqueta: '🖥️ Proceso' },
 ];
 
-const AUDIO_CONTEXTO_GENERAL = '/audios/ContextoGeneral.mp3';
+const BASE = import.meta.env.BASE_URL;
+
+const AUDIO_CONTEXTO_GENERAL = `${BASE}audios/ContextoGeneral.mp3`;
 
 const AUDIOS_COFRE = {
-  carrito: '/audios/Cofre1Carrito.mp3',
-  gamers: '/audios/Cofre2Gamers.mp3',
-  promocion: '/audios/audioPendiente.mp3',
+  carrito: `${BASE}audios/Cofre1Carrito.mp3`,
+  gamers: `${BASE}audios/Cofre2Gamers.mp3`,
+  promocion: `${BASE}audios/audioPendiente.mp3`,
 };
 
-const VIDEO_FUENTE_PENDIENTE = '/videos/pendientesVideos.mp4';
+const VIDEO_FUENTE_PENDIENTE = `${BASE}videos/pendientesVideos.mp4`;
 
 const VIDEOS_FUENTE = {
   carrito: {
-    empleado: '/videos/CarritoFuente2.mp4',
-    proceso: '/videos/CarritoFuente3.mp4',
+    empleado: `${BASE}videos/CarritoFuente2.mp4`,
+    proceso: `${BASE}videos/CarritoFuente3.mp4`,
   },
   gamers: {
-    empleado: '/videos/GamersFuente2.mp4',
+    empleado: `${BASE}videos/GamersFuente2.mp4`,
   },
   promocion: {
-    empleado: '/videos/PromocionFuente2.mp4',
-    proceso: '/videos/PromocionFuente3.mp4',
+    empleado: `${BASE}videos/PromocionFuente2.mp4`,
+    proceso: `${BASE}videos/PromocionFuente3.mp4`,
   },
 };
 
@@ -660,7 +662,7 @@ function Mision1() {
         ref={(elemento) => {
           if (elemento) elemento.volume = volumen;
         }}
-        src={'/nivel1/' + videoActual + '.mp4'}
+        src={`${BASE}nivel1/${videoActual}.mp4`}
         className="fixed inset-0 w-full h-full object-cover"
         autoPlay
         muted={isMuted}
