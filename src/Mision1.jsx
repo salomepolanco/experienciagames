@@ -20,7 +20,7 @@ const AUDIO_CONTEXTO_GENERAL = `${BASE}audios/ContextoGeneral.mp3`;
 const AUDIOS_COFRE = {
   carrito: `${BASE}audios/Cofre1Carrito.mp3`,
   gamers: `${BASE}audios/Cofre2Gamers.mp3`,
-  promocion: `${BASE}audios/audioPendiente.mp3`,
+  promocion: `${BASE}audios/Cofre3Promocion.mp3`,
 };
 
 const VIDEO_FUENTE_PENDIENTE = `${BASE}videos/pendientesVideos.mp4`;
