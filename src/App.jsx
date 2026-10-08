@@ -9,6 +9,7 @@ import SelectorNiveles from './SelectorNiveles.jsx';
 import Nivel0 from './Nivel0.jsx';
 import Mision1 from './Mision1.jsx';
 import Progreso from './Progreso.jsx';
+import Modulo2 from './Modulo2.jsx';
 
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, googleProvider, db } from './firebase.js'; 
@@ -170,6 +171,7 @@ function App() {
         <Route path="/niveles" element={<SelectorNiveles />} />
         <Route path="/nivel0" element={<Nivel0 />} />
         <Route path="/mision1" element={<Mision1 />} />
+        <Route path="/nivel2" element={<Modulo2 />} />
         <Route path="/progreso" element={<Progreso />} />
       </Routes>
     </SonidoProvider>

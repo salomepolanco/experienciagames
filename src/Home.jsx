@@ -12,7 +12,7 @@ const videos = {
 const MODULOS = [
   { id: 0, etiqueta: 'M0', ruta: '/nivel0', bloqueado: false },
   { id: 1, etiqueta: 'M1', ruta: '/mision1', bloqueado: false },
-  { id: 2, etiqueta: 'M2', ruta: null, bloqueado: true },
+  { id: 2, etiqueta: 'M2', ruta: '/nivel2', bloqueado: false },
   { id: 3, etiqueta: 'M3', ruta: null, bloqueado: true },
   { id: 4, etiqueta: 'M4', ruta: null, bloqueado: true },
 ];
