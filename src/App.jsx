@@ -176,6 +176,6 @@ function App() {
       </Routes>
     </SonidoProvider>
   );
-}
+} 
 
 export default App;
