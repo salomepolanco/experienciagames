@@ -1,3 +1,66 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.flip-card {
+  height: 9.5rem;
+  perspective: 1000px;
+  text-align: center;
+}
+
+.flip-card__inner {
+  display: block;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  width: 100%;
+}
+
+.flip-card.is-flipped .flip-card__inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card__face {
+  align-items: center;
+  backface-visibility: hidden;
+  background:
+    radial-gradient(ellipse at 50% 5%, rgb(250 204 21 / 18%), transparent 60%),
+    linear-gradient(145deg, rgb(23 23 23 / 48%), rgb(3 7 18 / 42%));
+  border: 1px solid rgb(250 204 21 / 78%);
+  border-radius: 1rem;
+  box-shadow:
+    0 0 18px rgb(250 204 21 / 18%),
+    inset 0 0 16px rgb(250 204 21 / 7%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0.5rem;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  width: 100%;
+}
+
+.flip-card__back {
+  transform: rotateY(180deg);
+}
+
+.flip-card:focus-visible .flip-card__face {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-card__inner {
+    transition-duration: 0.01ms;
+  }
+}
+
+@media (max-width: 420px) {
+  .flip-card {
+    height: 8.5rem;
+  }
+}

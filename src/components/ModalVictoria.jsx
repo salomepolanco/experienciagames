@@ -18,7 +18,7 @@ function InsigniaMinero({ casoNombre }) {
   );
 }
 
-function ModalVictoria({ casoNombre, onComplete }) {
+function ModalVictoria({ casoNombre, onComplete, onClose }) {
   const [videoEnBucle, setVideoEnBucle] = useState(false);
 
   return (
@@ -49,9 +49,19 @@ function ModalVictoria({ casoNombre, onComplete }) {
         <section
           aria-labelledby="modal-victoria-titulo"
           aria-modal="true"
-          className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl border border-yellow-400/70 bg-gray-900/35 p-5 text-center shadow-lg shadow-yellow-900/25 backdrop-blur-lg sm:max-h-[calc(100dvh-4rem)] sm:p-6"
+          className="relative z-10 max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto rounded-3xl border border-yellow-400/70 bg-gray-900/35 p-5 pt-14 text-center shadow-lg shadow-yellow-900/25 backdrop-blur-lg sm:max-h-[calc(100dvh-4rem)] sm:p-6 sm:pt-14"
           role="dialog"
         >
+          {onClose && (
+            <button
+              aria-label="Volver a la escena anterior"
+              className="absolute left-4 top-3 rounded-full border border-white/30 px-3 py-1 text-sm font-bold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-yellow-200"
+              onClick={onClose}
+              type="button"
+            >
+              ← Volver
+            </button>
+          )}
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-yellow-200">
             Módulo 2 · Misión finalizada
           </p>

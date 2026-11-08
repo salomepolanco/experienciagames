@@ -1,0 +1,11 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /accesos/{accesoId} {
+      allow get, list: if request.auth != null
+        && request.auth.token.email != null
+        && resource.data.email == request.auth.token.email;
+    }
+  }
+}

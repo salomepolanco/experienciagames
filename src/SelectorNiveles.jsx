@@ -9,10 +9,10 @@ const NIVELES = [
     bloqueado: false,
   },
   {
-    ruta: null,
-    titulo: 'Nivel 2: Próximamente',
-    descripcion: 'Este módulo aún no está disponible.',
-    bloqueado: true,
+    ruta: '/nivel2',
+    titulo: 'Nivel 2: Ciencia de Datos',
+    descripcion: 'Construye, entrena y analiza tu modelo de datos.',
+    bloqueado: false,
   },
   {
     ruta: null,

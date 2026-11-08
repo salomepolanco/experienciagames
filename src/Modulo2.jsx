@@ -19,8 +19,29 @@ function Modulo2() {
   const [escena, setEscena] = useState('inicio');
   const [variablesModelo, setVariablesModelo] = useState(null);
 
+  const volverEscena = () => {
+    const escenasAnteriores = {
+      inicio: () => navigate('/'),
+      horizontes: () => setEscena('inicio'),
+      cartas: () => setEscena('horizontes'),
+      arana: () => setEscena('cartas'),
+      terminal: () => setEscena('arana'),
+      candado: () => setEscena('terminal'),
+      victoria: () => setEscena('candado'),
+    };
+    escenasAnteriores[escena]();
+  };
+
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-950 p-5 text-white">
+      <button
+        aria-label="Volver a la pantalla anterior"
+        className="fixed left-4 top-4 z-[100] rounded-full border border-cyan-300/60 bg-black/70 px-4 py-2 font-bold text-white shadow-lg backdrop-blur-md transition hover:bg-black/90 focus:outline-none focus:ring-2 focus:ring-cyan-200"
+        onClick={volverEscena}
+        type="button"
+      >
+        ← Volver
+      </button>
       {escena === 'inicio' && (
         <section className="w-full max-w-2xl rounded-3xl border border-cyan-400/60 bg-gray-900/80 p-7 text-center shadow-[0_0_40px_rgba(34,211,238,0.2)] backdrop-blur-md sm:p-10">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-cyan-300">
@@ -55,13 +76,6 @@ function Modulo2() {
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <button
-              className="rounded-xl border border-white/20 px-5 py-3 font-bold text-gray-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/50"
-              onClick={() => navigate('/')}
-              type="button"
-            >
-              Volver al menú
-            </button>
-            <button
               className="rounded-xl bg-yellow-400 px-6 py-3 font-extrabold text-gray-950 transition hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-200"
               onClick={() => setEscena('horizontes')}
               type="button"
@@ -75,7 +89,7 @@ function Modulo2() {
       {escena === 'horizontes' && (
         <ModalHorizontes
           onComplete={() => setEscena('cartas')}
-          onClose={() => setEscena('inicio')}
+          onClose={volverEscena}
         />
       )}
 
@@ -83,7 +97,7 @@ function Modulo2() {
         <ModalCartas
           casoNombre={casoNombre}
           onComplete={() => setEscena('arana')}
-          onClose={() => setEscena('inicio')}
+          onClose={volverEscena}
         />
       )}
 
@@ -94,7 +108,7 @@ function Modulo2() {
             setVariablesModelo(variables);
             setEscena('terminal');
           }}
-          onClose={() => setEscena('inicio')}
+          onClose={volverEscena}
         />
       )}
 
@@ -103,7 +117,7 @@ function Modulo2() {
           casoNombre={casoNombre}
           variables={variablesModelo}
           onComplete={() => setEscena('candado')}
-          onClose={() => setEscena('inicio')}
+          onClose={volverEscena}
         />
       )}
 
@@ -111,14 +125,27 @@ function Modulo2() {
         <ModalCandado
           casoNombre={casoNombre}
           onComplete={() => setEscena('victoria')}
-          onClose={() => setEscena('inicio')}
+          onClose={volverEscena}
         />
       )}
 
       {escena === 'victoria' && (
         <ModalVictoria
           casoNombre={casoNombre}
-          onComplete={() => navigate('/')}
+          onClose={volverEscena}
+          onComplete={() => {
+            const progresoActual = Number(
+              localStorage.getItem('progresoExperiencia') ?? 0,
+            );
+            const progresoSeguro = Number.isFinite(progresoActual)
+              ? Math.max(0, progresoActual)
+              : 0;
+            localStorage.setItem(
+              'progresoExperiencia',
+              String(Math.max(progresoSeguro, 3)),
+            );
+            navigate('/');
+          }}
         />
       )}
 

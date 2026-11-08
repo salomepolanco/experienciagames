@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 const SonidoContext = createContext(null);
 
 export function SonidoProvider({ children }) {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [volumen, setVolumen] = useState(1);
 
   const toggleMuted = () => setIsMuted((previo) => !previo);

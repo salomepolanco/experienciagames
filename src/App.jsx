@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 
 import { SonidoProvider } from './context/SonidoContext.jsx';
@@ -13,6 +13,44 @@ import Modulo2 from './Modulo2.jsx';
 
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { auth, googleProvider, db } from './firebase.js'; 
+
+function obtenerMensajeErrorAcceso(error) {
+  switch (error?.code) {
+    case 'permission-denied':
+      return 'Google inició sesión, pero Firestore bloqueó la consulta de acceso. Publica las reglas de firestore.rules en Firebase Console.';
+    case 'unauthenticated':
+      return 'Firebase no pudo validar la sesión. Cierra sesión, vuelve a ingresar con Google e inténtalo otra vez.';
+    case 'unavailable':
+      return 'No se pudo conectar con Firestore. Revisa tu conexión a internet e inténtalo de nuevo.';
+    case 'failed-precondition':
+      return 'Firestore no pudo completar la consulta. Revisa la configuración de la base de datos en Firebase Console.';
+    default:
+      return `No se pudo verificar el acceso${error?.code ? ` (${error.code})` : ''}. Revisa la consola del navegador para más detalles.`;
+  }
+}
+
+function BotonRegresoRuta() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const pantallasAnteriores = {
+    '/niveles': { ruta: '/', etiqueta: 'Menú' },
+    '/mision1': { ruta: '/niveles', etiqueta: 'Niveles' },
+  };
+  const pantallaAnterior = pantallasAnteriores[pathname];
+
+  if (!pantallaAnterior) return null;
+
+  return (
+    <button
+      aria-label={`Volver a ${pantallaAnterior.etiqueta.toLowerCase()}`}
+      className="fixed left-4 top-4 z-[100] rounded-full border border-yellow-400/60 bg-black/60 px-4 py-2 font-bold text-white shadow-lg backdrop-blur-md transition hover:bg-black/80 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      onClick={() => navigate(pantallaAnterior.ruta)}
+      type="button"
+    >
+      ← {pantallaAnterior.etiqueta}
+    </button>
+  );
+}
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,7 +79,7 @@ function App() {
           }
         } catch (error) {
           console.error("Error consultando la base de datos:", error);
-          setErrorAcceso("Hubo un problema verificando tu acceso. Intenta de nuevo.");
+          setErrorAcceso(obtenerMensajeErrorAcceso(error));
           setUser(null);
         } finally {
           // ESTO GARANTIZA QUE LA PANTALLA DE CARGA SIEMPRE DESAPAREZCA
@@ -60,6 +98,9 @@ function App() {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
+      setErrorAcceso(
+        `No se pudo iniciar sesión con Google${error?.code ? ` (${error.code})` : ''}. Revisa la consola del navegador e inténtalo de nuevo.`,
+      );
     }
   };
 
@@ -101,11 +142,11 @@ function App() {
 
         {/* PARTE SUPERIOR: Título y Hook */}
         <div className="relative z-10 flex flex-col items-center mt-8 md:mt-12">
-          <h1 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-tighter drop-shadow-2xl">
-            ExperienciaIA
+          <h1 className="font-brand max-w-5xl text-center text-3xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 tracking-tight drop-shadow-2xl md:text-5xl">
+            Bienvenid@ al Reto IA para análisis de Datos Estratégico
           </h1>
-          <p className="mt-4 text-gray-200 text-sm md:text-base font-medium tracking-wide bg-black/40 px-6 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
-            Descubre el poder de los datos jugando
+          <p className="font-brand mt-4 text-gray-200 text-sm md:text-base font-medium tracking-wide bg-black/40 px-6 py-2 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+            By ExperienciaIA
           </p>
         </div>
 
@@ -114,7 +155,7 @@ function App() {
           
           {/* AQUÍ SE MOSTRARÁ EL MENSAJE SI EL CORREO NO ESTÁ EN LA BASE DE DATOS */}
           {errorAcceso && (
-            <div className="mb-6 px-6 py-3 bg-red-900/80 border border-red-500/50 rounded-xl backdrop-blur-md text-red-200 text-sm md:text-base font-medium shadow-2xl text-center max-w-md animate-pulse">
+            <div aria-live="polite" className="mb-6 px-6 py-3 bg-red-900/80 border border-red-500/50 rounded-xl backdrop-blur-md text-red-200 text-sm md:text-base font-medium shadow-2xl text-center max-w-md">
               {errorAcceso}
             </div>
           )}
@@ -147,6 +188,7 @@ function App() {
   return (
     <SonidoProvider>
       <BotonSonido />
+      <BotonRegresoRuta />
       
       {/* Cabecera de usuario flotante */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3 bg-black/60 p-2 rounded-full backdrop-blur-md border border-white/20 shadow-lg">
