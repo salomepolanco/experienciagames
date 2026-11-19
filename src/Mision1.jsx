@@ -16,6 +16,7 @@ const FUENTES = [
 const BASE = import.meta.env.BASE_URL;
 
 const AUDIO_CONTEXTO_GENERAL = `${BASE}audios/ContextoGeneral.mp3`;
+const AUDIO_PREAMBULO_PLAYSTATION = `${BASE}audios/preambulo_playstation.mp3`;
 
 const AUDIOS_COFRE = {
   carrito: `${BASE}audios/Cofre1Carrito.mp3`,
@@ -27,11 +28,14 @@ const VIDEO_FUENTE_PENDIENTE = `${BASE}videos/pendientesVideos.mp4`;
 
 const VIDEOS_FUENTE = {
   carrito: {
+    cliente: `${BASE}videos/CarritoFuente1.mp4`,
     empleado: `${BASE}videos/CarritoFuente2.mp4`,
     proceso: `${BASE}videos/CarritoFuente3.mp4`,
   },
   gamers: {
+    cliente: `${BASE}videos/GamersFuente1.mp4`,
     empleado: `${BASE}videos/GamersFuente2.mp4`,
+    proceso: `${BASE}videos/GamersFuente3.mp4`,
   },
   promocion: {
     empleado: `${BASE}videos/PromocionFuente2.mp4`,
@@ -41,6 +45,11 @@ const VIDEOS_FUENTE = {
 
 const obtenerVideoFuente = (cofre, fuente) =>
   VIDEOS_FUENTE[cofre]?.[fuente] ?? VIDEO_FUENTE_PENDIENTE;
+
+const VIDEO_FUENTE_VERTICAL = {
+  carrito: ['cliente'],
+  gamers: ['cliente', 'proceso'],
+};
 
 const TABLAS_CARRITO = [
   {
@@ -400,7 +409,18 @@ const TABLAS_POR_COFRE = {
 const datosCofres = {
   carrito: {
     historia:
-      'Cada lunes entro a la junta con el estómago apretado. La pantalla grande siempre muestra lo mismo: un 65% de abandono en carritos. Todos los ojos se clavan en mí cuando comparan con Amazon o Steam. El comité me mide por tasa de conversión y ventas reales y saben que cada carrito abandonado es dinero perdido. El CFO me preguntó la semana pasada: ‘¿Dónde se están yendo los clientes? ¿Por qué no compran?’. Yo lo sé: algo pasa en el checkout, quizá el precio final o los errores de pago, pero no tengo todas las pruebas. Si no reduzco esas cifras, el próximo nombre en la lista de despidos puede ser el mío. Y lo único que pienso es: ¿cómo puedo demostrar que mi equipo no está fallando, sino que nos faltan los datos correctos para actuar?',
+      <>
+        El <strong>65% de los clientes abandona su carrito</strong> antes de
+        completar la compra en la app.
+        <br />
+        <br />
+        ¿El problema es el precio final, los errores de pago o algo más?
+        <br />
+        <br />
+        <strong>La gerencia exige respuestas y resultados.</strong> Tu reto es
+        descubrir por qué los clientes no compran y cómo recuperar esas ventas
+        antes de que tu puesto esté en riesgo.
+      </>,
     cliente: {
       linea: 'Estaba a punto de comprar el nuevo control, pero cuando vi el total con el envío, mejor cerré la página.',
       correcta: '¿En qué momento exacto del proceso decidiste no continuar?',
@@ -412,7 +432,7 @@ const datosCofres = {
     },
     empleado: {
       linea: 'Todos los días recibo el mismo reclamo, pero arriba no me creen que sea tan seguido.',
-      correcta: '¿Cuál es el reclamo sobre precios que más se repite?',
+      correcta: '¿Cuál es el reclamo que más se repite?',
       incorrecta: '¿Cómo va tu día?',
       pistaCorrecta:
         'El precio que ven al inicio no es el que terminan pagando: el salto por envío e impuestos genera la mayoría de quejas.',
@@ -431,7 +451,21 @@ const datosCofres = {
   },
   gamers: {
     historia:
-      'En cada comité me ponen en rojo: el churn de PlayStation Plus subió 12% y los directores no ven que seamos capaces de detenerlo. La diapositiva muestra cuántos usuarios están inactivos por 60 días, y ahí está la evidencia: miles de jugadores pagando, pero sin abrir la app ni descargar un solo juego. Me miden por retención de clientes y uso de beneficios de la suscripción, y el CEO pregunta cada semana: ‘¿Por qué la gente paga y no juega?’. La presión es doble: no solo peligra mi puesto, sino el de mi equipo entero. Ya se habla de recortar Retención porque ‘no genera valor’. Yo pienso en mis analistas, en sus familias, y sé que si logramos identificar a tiempo quiénes están dormidos y qué sí usan los jugadores activos, podemos salvar nuestro trabajo. Pero cada junta es un juicio, y el jurado ya está cansado de excusas.',
+      <>
+        Cada vez más jugadores están dejando de usar{' '}
+        <strong>PlayStation Plus</strong>. Miles llevan más de 60 días sin jugar
+        y las cancelaciones de suscripciones han aumentado un{' '}
+        <strong>12%</strong>.
+        <br />
+        <br />
+        ¿Por qué los jugadores están perdiendo el interés? ¿Qué podemos hacer
+        para evitar que cancelen?
+        <br />
+        <br />
+        <strong>La gerencia exige resultados.</strong> Tu misión es descubrir
+        por qué los jugadores se están alejando y encontrar cómo hacer que
+        vuelvan a jugar antes de que tu equipo sea recortado.
+      </>,
     cliente: {
       linea: 'Pago la suscripción cada mes, pero la verdad ya ni recuerdo cuándo abrí la app por última vez.',
       correcta: '¿Hace cuánto tiempo no juegas ni abres la app?',
@@ -461,7 +495,28 @@ const datosCofres = {
   },
   promocion: {
     historia:
-      'Cada junta de marketing empieza igual: el CFO proyecta el ROI de campañas y pregunta: ‘¿Vale la pena invertir en ustedes?’. Veo en la pantalla clics altos, compras bajas, CAC disparado. La narrativa es brutal: gastamos miles en publicidad para obtener ‘likes’, no ventas. El comité me mide por tasa de conversión y retorno de inversión. Y aunque sé que algunas campañas funcionaron, no logro probar con datos quiénes son los clientes que sí convierten ni cuánto realmente ganamos en dólares. Lo curioso es que a mí me prometieron algo distinto: si logro demostrar que la segmentación digital puede dar frutos, me van a ascender a Director Regional. Entonces cada cifra que aparece en esas juntas no solo es un golpe al área, es también un reto personal: probar que puedo pasar de ejecutor a estratega.',
+      <>
+        PlayStation LATAM está gastando miles de dólares en publicidad.{' '}
+        <strong>
+          Los anuncios reciben muchos clics, pero generan pocas ventas.
+        </strong>
+        <br />
+        <br />
+        ¿Estamos mostrando publicidad a las personas equivocadas? ¿Cómo saber
+        qué clientes realmente compran?
+        <br />
+        <br />
+        <strong>
+          La gerencia está cuestionando la inversión en marketing.
+        </strong>{' '}
+        Tu misión es descubrir a qué clientes dirigir las campañas para
+        conseguir más ventas sin desperdiciar presupuesto.
+        <br />
+        <br />
+        <strong>
+          Si lo logras, podrías convertirte en el próximo Director Regional.
+        </strong>
+      </>,
     cliente: {
       linea: 'Vi el anuncio, hice clic porque se veía bien, pero al final no compré nada.',
       correcta: '¿Qué te hizo no completar la compra después de hacer clic?',
@@ -496,10 +551,12 @@ const datosCofres = {
 function Mision1() {
   const { isMuted, volumen } = useSonido();
   const audioContextoRef = useRef(null);
+  const audioPreambuloRef = useRef(null);
   const audioCofreRef = useRef(null);
   const [videoActual, setVideoActual] = useState('modulo1video1');
 
   const [pasoMision, setPasoMision] = useState(0);
+  const [errorAudioPreambulo, setErrorAudioPreambulo] = useState('');
   const [cofreActivo, setCofreActivo] = useState(null);
 
   const [mostrarContinuara, setMostrarContinuara] = useState(false);
@@ -547,6 +604,16 @@ function Mision1() {
     setErrorPregunta(false);
   };
 
+  const reproducirAudioPreambulo = () => {
+    setErrorAudioPreambulo('');
+    audioPreambuloRef.current?.play().catch((error) => {
+      console.error('No se pudo reproducir el audio del preámbulo:', error);
+      setErrorAudioPreambulo(
+        'El audio todavía no está disponible. Puedes continuar leyendo.',
+      );
+    });
+  };
+
   const mostrarFeedbackTemporal = (mensaje) => {
     setMensajeAuditoria(mensaje);
     setTimeout(() => {
@@ -587,8 +654,8 @@ function Mision1() {
         setCofreActivo(null);
         return;
       }
-      if (pasoMision === 1) {
-        setPasoMision(0);
+      if (pasoMision > 0) {
+        setPasoMision((pasoActual) => pasoActual - 1);
         return;
       }
       setVideoActual('modulo1bucle2');
@@ -623,6 +690,7 @@ function Mision1() {
 
     setVideoActual('modulo1video1');
     setPasoMision(0);
+    setErrorAudioPreambulo('');
     setCofreActivo(null);
     setMostrarContinuara(false);
     setFuenteActiva(null);
@@ -718,13 +786,18 @@ function Mision1() {
               El Umbral
             </h2>
             <p className="mb-6 leading-relaxed">
-              Bienvenido, Explorador. Tu misión comienza ahora.
+              Bienvenido, Explorador. Tienes tu primera misión real. Empieza
+              ahora.
             </p>
             <button
-              onClick={() => setVideoActual('modulo1video3')}
+              onClick={() => {
+                setPasoMision(0);
+                setErrorAudioPreambulo('');
+                setVideoActual('modulo1video3');
+              }}
               className="bg-yellow-400 text-black font-bold px-4 py-2 rounded-lg hover:bg-yellow-300 transition-colors"
             >
-              Entrar a PlayStation
+              Salvar a PlayStation
             </button>
           </div>
         </div>
@@ -735,17 +808,65 @@ function Mision1() {
           <div className="bg-slate-900/50 backdrop-blur-sm border border-yellow-400/40 rounded-xl p-4 text-white">
             {pasoMision === 0 && (
               <>
+                <h2 className="text-lg font-bold text-yellow-400 mb-3">
+                  La misión
+                </h2>
+                <p className="text-sm leading-relaxed mb-4">
+                  PlayStation LATAM está en problemas. Las ventas no están
+                  cumpliendo las expectativas y la gerencia exige resultados.
+                  Se vienen decisiones difíciles: recortes, despidos… pero
+                  también ascensos. Tu área está bajo evaluación. Y lo que
+                  hagas desde ahora puede cambiarlo todo.
+                </p>
+                <audio
+                  ref={(elemento) => {
+                    audioPreambuloRef.current = elemento;
+                    if (elemento) elemento.volume = volumen;
+                  }}
+                  src={AUDIO_PREAMBULO_PLAYSTATION}
+                  muted={isMuted}
+                  onError={() =>
+                    setErrorAudioPreambulo(
+                      'El audio todavía no está disponible. Puedes continuar leyendo.',
+                    )
+                  }
+                />
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={reproducirAudioPreambulo}
+                    className="border border-yellow-400/50 rounded-lg px-3 py-1.5 text-xs hover:bg-yellow-400/10 transition-colors"
+                    type="button"
+                  >
+                    🔊 Escuchar Audio
+                  </button>
+                  <button
+                    onClick={() => setPasoMision(1)}
+                    className="bg-yellow-400 text-black font-bold px-3 py-1.5 rounded-lg text-xs hover:bg-yellow-300 transition-colors"
+                    type="button"
+                  >
+                    Continuar
+                  </button>
+                </div>
+                {errorAudioPreambulo && (
+                  <p className="mt-2 text-xs text-yellow-200" role="status">
+                    {errorAudioPreambulo}
+                  </p>
+                )}
+              </>
+            )}
+
+            {pasoMision === 1 && (
+              <>
                 <h2 className="text-lg font-bold text-yellow-400 mb-2">
-                  Contexto de Crisis
+                  El comité de gerencia necesita resultados y hay tres
+                  problemas sobre la mesa.
                 </h2>
                 <p className="text-xs leading-snug mb-3">
-                  PlayStation LATAM, la empresa donde trabajas, está pasando
-                  por un mal momento: las ventas no crecen al ritmo esperado
-                  y el comité de gerencia ha puesto a todas las áreas bajo la
-                  lupa. Se habla de recortes, despidos y reestructuración. Al
-                  mismo tiempo, algunos ven aquí la oportunidad de mostrar
-                  resultados y asegurar ascensos o ampliar su área. Tú eres
-                  uno de los gerentes que está en la mira.
+                  <strong className="block">
+                    Elige cuál vas a resolver.
+                  </strong>{' '}
+                  Será tu misión durante los 5 módulos, hasta construir tu
+                  solución final.
                 </p>
                 <audio
                   ref={(elemento) => {
@@ -755,33 +876,18 @@ function Mision1() {
                   src={AUDIO_CONTEXTO_GENERAL}
                   muted={isMuted}
                 />
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => audioContextoRef.current?.play()}
-                    className="border border-yellow-400/50 rounded-lg px-3 py-1.5 text-xs hover:bg-yellow-400/10 transition-colors"
-                  >
-                    🔊 Escuchar Audio
-                  </button>
-                  <button
-                    onClick={() => setPasoMision(1)}
-                    className="bg-yellow-400 text-black font-bold px-3 py-1.5 rounded-lg text-xs hover:bg-yellow-300 transition-colors"
-                  >
-                    Elegir mi caso
-                  </button>
-                </div>
-              </>
-            )}
-
-            {pasoMision === 1 && (
-              <>
-                <h2 className="text-base font-bold text-yellow-400 mb-3">
-                  Selecciona el problema que vas a resolver:
-                </h2>
+                <button
+                  onClick={() => audioContextoRef.current?.play()}
+                  className="mb-3 border border-yellow-400/50 rounded-lg px-3 py-1.5 text-xs hover:bg-yellow-400/10 transition-colors"
+                  type="button"
+                >
+                  🔊 Escuchar Audio
+                </button>
                 <div className="flex items-start gap-2 bg-black/60 border border-yellow-400 rounded-lg px-3 py-2 mb-3 text-xs text-yellow-200">
                   <span className="text-base leading-none">⚠️</span>
                   <p>
-                    Nota importante a considerar: El caso a elegir se
-                    trabajará hasta finalizar todos los módulos.
+                    El caso que elijas se trabajará durante los cinco módulos,
+                    hasta construir tu solución final.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -813,9 +919,9 @@ function Mision1() {
             autoPlay
             muted={isMuted}
           />
-          <p className="italic text-xs leading-relaxed mb-3 max-h-32 overflow-y-auto pr-1">
-            "{datosCofres[cofreActivo].historia}"
-          </p>
+          <div className="text-xs leading-relaxed mb-3 max-h-48 overflow-y-auto pr-1">
+            {datosCofres[cofreActivo].historia}
+          </div>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => audioCofreRef.current?.play()}
@@ -884,45 +990,73 @@ function Mision1() {
 
           {fuenteActiva && !feedbackFuente && (
             <div className="absolute inset-0 z-50 flex items-center justify-center p-4">
-              <div className="bg-black/80 backdrop-blur-md border border-cyan-400 rounded-lg p-6 max-w-xl w-full text-white shadow-[0_0_20px_rgba(34,211,238,0.5)]">
+              <div
+                className={`max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-lg border border-cyan-400 bg-black/80 p-4 text-white shadow-[0_0_20px_rgba(34,211,238,0.5)] backdrop-blur-md sm:p-6 ${
+                  VIDEO_FUENTE_VERTICAL[cofreActivo]?.includes(fuenteActiva)
+                    ? 'max-w-5xl'
+                    : 'max-w-xl'
+                }`}
+              >
                 {datosCofres[cofreActivo]?.[fuenteActiva] ? (
                   <>
-                    <video
-                      key={fuenteActiva}
-                      src={obtenerVideoFuente(cofreActivo, fuenteActiva)}
-                      controls
-                      className="w-full aspect-video rounded-lg shadow-lg object-cover bg-black"
-                    />
-                    <p className="text-sm text-gray-300 mt-4 max-h-32 overflow-y-auto italic border-l-2 border-cyan-500 pl-3">
-                      "{datosCofres[cofreActivo][fuenteActiva].linea}"
-                    </p>
-                    <p className="text-cyan-300 font-bold text-sm uppercase tracking-wide mt-4 mb-2">
-                      ¿Qué preguntaría un investigador?
-                    </p>
-                    <div className="flex flex-col gap-3">
-                      <button
-                        onClick={() => manejarResponderPregunta(true)}
-                        className="border border-cyan-400/50 rounded-lg px-4 py-3 text-left hover:bg-cyan-400/10 transition-colors"
+                    <div
+                      className={
+                        VIDEO_FUENTE_VERTICAL[cofreActivo]?.includes(fuenteActiva)
+                          ? 'grid items-start gap-5 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]'
+                          : ''
+                      }
+                    >
+                      <div
+                        className={
+                          VIDEO_FUENTE_VERTICAL[cofreActivo]?.includes(fuenteActiva)
+                            ? 'flex justify-center'
+                            : ''
+                        }
                       >
-                        {datosCofres[cofreActivo][fuenteActiva].correcta}
-                      </button>
-                      <button
-                        onClick={() => manejarResponderPregunta(false)}
-                        className={`flex items-center justify-between gap-2 border rounded-lg px-4 py-3 text-left transition-colors ${
-                          errorPregunta
-                            ? 'border-red-500 bg-red-900/30'
-                            : 'border-cyan-400/50 hover:bg-cyan-400/10'
-                        }`}
-                      >
-                        <span>
-                          {datosCofres[cofreActivo][fuenteActiva].incorrecta}
-                        </span>
-                        {errorPregunta && (
-                          <span className="text-red-500 font-bold text-2xl leading-none">
-                            ❌
-                          </span>
-                        )}
-                      </button>
+                        <video
+                          key={fuenteActiva}
+                          src={obtenerVideoFuente(cofreActivo, fuenteActiva)}
+                          controls
+                          className={`rounded-lg shadow-lg bg-black ${
+                            VIDEO_FUENTE_VERTICAL[cofreActivo]?.includes(fuenteActiva)
+                              ? 'h-[min(70vh,42rem)] w-auto max-w-full aspect-[9/16] object-contain'
+                              : 'w-full aspect-video object-cover'
+                          }`}
+                        />
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-300 mt-4 max-h-32 overflow-y-auto italic border-l-2 border-cyan-500 pl-3 md:mt-0">
+                          "{datosCofres[cofreActivo][fuenteActiva].linea}"
+                        </p>
+                        <p className="text-cyan-300 font-bold text-sm uppercase tracking-wide mt-4 mb-2">
+                          ¿Qué preguntaría un investigador?
+                        </p>
+                        <div className="flex flex-col gap-3">
+                          <button
+                            onClick={() => manejarResponderPregunta(true)}
+                            className="border border-cyan-400/50 rounded-lg px-4 py-3 text-left hover:bg-cyan-400/10 transition-colors"
+                          >
+                            {datosCofres[cofreActivo][fuenteActiva].correcta}
+                          </button>
+                          <button
+                            onClick={() => manejarResponderPregunta(false)}
+                            className={`flex items-center justify-between gap-2 border rounded-lg px-4 py-3 text-left transition-colors ${
+                              errorPregunta
+                                ? 'border-red-500 bg-red-900/30'
+                                : 'border-cyan-400/50 hover:bg-cyan-400/10'
+                            }`}
+                          >
+                            <span>
+                              {datosCofres[cofreActivo][fuenteActiva].incorrecta}
+                            </span>
+                            {errorPregunta && (
+                              <span className="text-red-500 font-bold text-2xl leading-none">
+                                ❌
+                              </span>
+                            )}
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </>
                 ) : (

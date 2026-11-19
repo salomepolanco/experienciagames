@@ -63,6 +63,7 @@ function ModalCandado({ casoNombre, onComplete, onClose }) {
   const [errores, setErrores] = useState([false, false, false]);
   const [pistaAbierta, setPistaAbierta] = useState(false);
   const [pistaActual, setPistaActual] = useState(-1);
+  const [videoEnBucle, setVideoEnBucle] = useState(false);
   const resultado = resultadosTerminal[casoNombre];
   const diales = resultado ? construirDiales(resultado) : [];
   const candadoAbierto = dialesAbiertos.every(Boolean);
@@ -120,19 +121,36 @@ function ModalCandado({ casoNombre, onComplete, onClose }) {
       aria-label="Escena 5: Candado de resultados"
       className="fixed inset-0 z-50 isolate overflow-y-auto bg-black/10 text-white"
     >
-      <video
-        aria-hidden="true"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
-      >
-        <source
-          src={`${import.meta.env.BASE_URL}nivel2/modulo2bucle5.mp4`}
-          type="video/mp4"
-        />
-      </video>
+      <div aria-hidden="true" className="absolute inset-0 -z-10">
+        <video
+          autoPlay
+          muted
+          playsInline
+          onEnded={() => setVideoEnBucle(true)}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            videoEnBucle ? 'opacity-0' : 'opacity-100'
+          }`}
+        >
+          <source
+            src={`${import.meta.env.BASE_URL}nivel2/modulo2video5.mp4`}
+            type="video/mp4"
+          />
+        </video>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            videoEnBucle ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <source
+            src={`${import.meta.env.BASE_URL}nivel2/modulo2bucle5.mp4`}
+            type="video/mp4"
+          />
+        </video>
+      </div>
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/10" />
 
       <div className="flex min-h-screen items-center justify-start p-4 pl-[clamp(1rem,8vw,7rem)] sm:pr-8">

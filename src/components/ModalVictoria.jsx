@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 function InsigniaMinero({ casoNombre }) {
   return (
     <div className="mx-auto flex h-48 w-48 items-center justify-center rounded-full border-4 border-yellow-300/80 bg-[radial-gradient(circle,rgba(250,204,21,0.3)_0%,rgba(113,63,18,0.3)_55%,rgba(15,23,42,0.65)_100%)] p-4 text-center shadow-[0_0_35px_rgba(250,204,21,0.35),inset_0_0_24px_rgba(250,204,21,0.2)]">
@@ -19,27 +17,20 @@ function InsigniaMinero({ casoNombre }) {
 }
 
 function ModalVictoria({ casoNombre, onComplete, onClose }) {
-  const [videoEnBucle, setVideoEnBucle] = useState(false);
-
   return (
     <section
       aria-label="Escena 6: Misión cumplida"
       className="fixed inset-0 z-50 isolate overflow-y-auto bg-black/10 text-white"
     >
       <video
-        key={videoEnBucle ? 'victoria-bucle' : 'victoria-accion'}
         aria-hidden="true"
         autoPlay
-        loop={videoEnBucle}
         muted
         playsInline
-        onEnded={() => setVideoEnBucle(true)}
         className="absolute inset-0 -z-10 h-full w-full object-cover"
       >
         <source
-          src={`${import.meta.env.BASE_URL}nivel2/${
-            videoEnBucle ? 'modulo2bucle6.mp4' : 'modulo2video6.mp4'
-          }`}
+          src={`${import.meta.env.BASE_URL}nivel2/modulo2video6.mp4`}
           type="video/mp4"
         />
       </video>

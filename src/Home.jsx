@@ -11,7 +11,7 @@ const videos = {
 
 const MODULOS = [
   { id: 0, etiqueta: 'M0', ruta: '/nivel0' },
-  { id: 1, etiqueta: 'M1', ruta: '/mision1' },
+  { id: 1, etiqueta: 'M1', ruta: '/mision1', disponibleParaPruebas: true },
   { id: 2, etiqueta: 'M2', ruta: '/nivel2', disponibleParaPruebas: true },
   { id: 3, etiqueta: 'M3', ruta: null },
   { id: 4, etiqueta: 'M4', ruta: null },
